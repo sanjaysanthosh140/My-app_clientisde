@@ -36,11 +36,11 @@ export default function ProductForm() {
        formData.append('image', proData.image);
         console.log("upload",proData)
         console.log("formD",formData)
-      //  const response = await axios.post("https://myapp-server-side-pqkd.onrender.com/admin_side/", formData,{
-          //  headers: {
-              //  'Content-Type': 'multipart/form-data'
-          //  }
-      //  })
+       const response = await axios.post("http//:localhost:4000/admin_side/", formData,{
+           headers: {
+               'Content-Type': 'multipart/form-data'
+           }
+       })
        if(response){
           let prodName = response.data.prodName
           prodName?setMessage({
