@@ -22,7 +22,7 @@ function ProtectRoute({ children }) {
     const FetchAuth = async () => {
       // console.log('token',token)
       const data = await fetch(
-        //"https://myapp-server-side-pqkd.onrender.com/user_side/checkauth",
+        "http//:localhost:4000/user_side/checkauth",
          {
         headers: {
           'Authorization':`${token}`,
