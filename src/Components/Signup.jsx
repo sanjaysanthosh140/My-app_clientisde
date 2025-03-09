@@ -64,7 +64,6 @@ const SignupPage = () => {
             [e.target.name]:e.target.value
 
         })
-       
         
     }
      const handleSubmit = async (e) => {
@@ -78,9 +77,7 @@ const SignupPage = () => {
        open: true
      })
    }
-   const result = await axios.post(
-    "https://myapp-server-side-pqkd.onrender.com/user_side", formData
-    )
+   const result = await axios.post("https://myapp-server-side-pqkd.onrender.com/user_side", formData)
    let name = result.data.data
    cookies.set("userName",name)
    console.log(name)

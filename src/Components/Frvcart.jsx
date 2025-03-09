@@ -76,7 +76,7 @@ function Frvcart() {
     const token = localStorage.getItem("token");
     const getCartItes = async () => {
       const response = await axios.get(
-        //"https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
+        "https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
         {
           withCredentials: true,
           headers: {
