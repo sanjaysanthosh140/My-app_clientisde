@@ -78,7 +78,9 @@ const SignupPage = () => {
        open: true
      })
    }
-   const result = await axios.post("https://myapp-server-side-pqkd.onrender.com/user_side", formData)
+   const result = await axios.post(
+    //"https://myapp-server-side-pqkd.onrender.com/user_side", formData
+    )
    let name = result.data.data
    cookies.set("userName",name)
    console.log(name)
@@ -98,12 +100,12 @@ const SignupPage = () => {
 }
 
  const handleGoogleSignup = async() => {
-  const result = window.location.href = 'https://myapp-server-side-pqkd.onrender.com/user_side/oauth/google';
+  //const result = window.location.href = 'https://myapp-server-side-pqkd.onrender.com/user_side/oauth/google';
   console.log(result,"ressult")
   }
 
  const handleGithubSignup = async() => {
-   window.location.href = 'https://myapp-server-side-pqkd.onrender.com/user_side/github/oauth';
+   //window.location.href = 'https://myapp-server-side-pqkd.onrender.com/user_side/github/oauth';
  }
 
 

@@ -26,7 +26,9 @@ let [ wishItem,setwishItem] = useState([])
 const handleDelete = async(id) =>{
   setwishItem(wishItem.filter((item)=>item._id !== id))
   const token = localStorage.getItem("token")
-   axios.delete(`https://myapp-server-side-pqkd.onrender.com/user_side/delete_wish/${id}`,{
+   axios.delete(
+    //`https://myapp-server-side-pqkd.onrender.com/user_side/delete_wish/${id}`,
+    {
     withCredentials:true,
     headers:{
       Authorization: `${token}`,
@@ -55,7 +57,9 @@ const handleColose =()=>{
     try {
       const token = localStorage.getItem("token")
       async function fetchWish(){
-           await fetch('https://myapp-server-side-pqkd.onrender.com/user_side/retrive_wish',{
+           await fetch(
+            //'https://myapp-server-side-pqkd.onrender.com/user_side/retrive_wish',
+            {
             method:'Get',
              headers:{
                'Authorization': `${token}`,
@@ -214,7 +218,7 @@ const handleColose =()=>{
                   >
                     <Box sx={{ position: "relative", overflow: "hidden" }}>
                       <img
-                        src={`https://myapp-server-side-pqkd.onrender.com/uploads/${item.prodImage.replace("uploads","")}`}
+                       // src={`https://myapp-server-side-pqkd.onrender.com/uploads/${item.prodImage.replace("uploads","")}`}
                         alt="Product"
                         style={{
                           width: "100%",
