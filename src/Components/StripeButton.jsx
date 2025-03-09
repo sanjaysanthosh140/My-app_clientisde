@@ -21,7 +21,7 @@ const StripeButton = (total) => {
       const {
         data: { clientSecret },
       } = await axios.post(
-        "http//:localhost:4000/user_side/payment", 
+        "https://myapp-server-side-pqkd.onrender.com/user_side/payment", 
         {
         amount: amount,
       });

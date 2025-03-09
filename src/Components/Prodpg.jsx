@@ -119,7 +119,7 @@ const ProductCard = () => {
     const token = localStorage.getItem("token");
     console.log(token);
     const response = await axios.get(
-     `http//:localhost:4000/user_side/newCart/${id}`,
+     `https://myapp-server-side-pqkd.onrender.com/user_side/newCart/${id}`,
       {
         withCredentials: true,
         headers: {
@@ -144,7 +144,7 @@ const ProductCard = () => {
       console.log(id);
       const token =localStorage.getItem("token");
       const response = await axios.get(
-        `http//:localhost:4000/user_side/wishList/${id}`,
+        `https://myapp-server-side-pqkd.onrender.com/user_side/wishList/${id}`,
         {
         withCredentials:true,
         headers:{
@@ -194,7 +194,7 @@ const ProductCard = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-         "http//:localhost:4000/user_side/products"
+         "https://myapp-server-side-pqkd.onrender.com/user_side/products"
         );
         const cards = response.data[0];
         console.log(cards);
@@ -236,7 +236,7 @@ const ProductCard = () => {
             <Box sx={{ position: "relative" }}>
               <ProductImage
                 image={
-                  `http//:localhost:4000/uploads/${card.prodImage.replace("uploads","")}`
+                  `https://myapp-server-side-pqkd.onrender.com/uploads/${card.prodImage.replace("uploads","")}`
                 }
                 title="Product"
               />

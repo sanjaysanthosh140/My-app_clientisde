@@ -43,11 +43,11 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http//:localhost:4000/user_side/oauth/google";
+    window.location.href = "https://myapp-server-side-pqkd.onrender.com/user_side/oauth/google";
   };
 
   const handleGithubLogin = () => {
-    window.location.href = "http//:localhost:4000/user_side/github/oauth";
+    window.location.href = "https://myapp-server-side-pqkd.onrender.com/user_side/github/oauth";
   };
 const hadleClose =() =>{
   setmessage({
@@ -60,7 +60,7 @@ const hadleClose =() =>{
     //console.log(formData);
     axios
       .post(
-       // "http//:localhost:4000/user_side/login", formData
+       // "https://myapp-server-side-pqkd.onrender.com/user_side/login", formData
       )
       .then((response) => {
         console.log("login",response.data);
