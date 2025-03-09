@@ -31,7 +31,7 @@ function Frvcart() {
     try {
       let token = localStorage.getItem("token");
       let response = await axios.put(
-        "https://myapp-server-side-pqkd.onrender.com/user_side/decrement",
+        // "https://myapp-server-side-pqkd.onrender.com/user_side/decrement",
         { proId, action },
         {
           headers: {
@@ -43,7 +43,7 @@ function Frvcart() {
       console.log("resForreFet", response);
       if (response) {
         const response = await axios.get(
-          "https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
+          // "https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
           {
             withCredentials: true,
             headers: {
@@ -76,7 +76,7 @@ function Frvcart() {
     const token = localStorage.getItem("token");
     const getCartItes = async () => {
       const response = await axios.get(
-        "https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
+        //"https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
         {
           withCredentials: true,
           headers: {

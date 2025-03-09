@@ -119,7 +119,7 @@ const ProductCard = () => {
     const token = localStorage.getItem("token");
     console.log(token);
     const response = await axios.get(
-      `https://myapp-server-side-pqkd.onrender.com/user_side/newCart/${id}`,
+     // `https://myapp-server-side-pqkd.onrender.com/user_side/newCart/${id}`,
       {
         withCredentials: true,
         headers: {
@@ -143,7 +143,9 @@ const ProductCard = () => {
     try {
       console.log(id);
       const token =localStorage.getItem("token");
-      const response = await axios.get(`https://myapp-server-side-pqkd.onrender.com/user_side/wishList/${id}`,{
+      const response = await axios.get(
+        //`https://myapp-server-side-pqkd.onrender.com/user_side/wishList/${id}`,
+        {
         withCredentials:true,
         headers:{
           "Content-Type":"application/json",
@@ -192,7 +194,7 @@ const ProductCard = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "https://myapp-server-side-pqkd.onrender.com/user_side/products"
+         // "https://myapp-server-side-pqkd.onrender.com/user_side/products"
         );
         const cards = response.data[0];
         console.log(cards);
@@ -233,7 +235,9 @@ const ProductCard = () => {
           <StyledCard key={card._id}>
             <Box sx={{ position: "relative" }}>
               <ProductImage
-                image={`https://myapp-server-side-pqkd.onrender.com/uploads/${card.prodImage.replace("uploads","")}`}
+                // image={
+                  // `https://myapp-server-side-pqkd.onrender.com/uploads/${card.prodImage.replace("uploads","")}`
+                // }
                 title="Product"
               />
 

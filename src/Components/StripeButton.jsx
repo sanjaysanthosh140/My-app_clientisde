@@ -20,7 +20,9 @@ const StripeButton = (total) => {
       // Step 1: Get clientSecret from backend
       const {
         data: { clientSecret },
-      } = await axios.post("https://myapp-server-side-pqkd.onrender.com/user_side/payment", {
+      } = await axios.post(
+        //"https://myapp-server-side-pqkd.onrender.com/user_side/payment", 
+        {
         amount: amount,
       });
       console.log("clientSecret", clientSecret);

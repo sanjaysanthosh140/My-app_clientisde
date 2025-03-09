@@ -21,7 +21,9 @@ function ProtectRoute({ children }) {
     const token = localStorage.getItem("token");
     const FetchAuth = async () => {
       // console.log('token',token)
-      const data = await fetch("https://myapp-server-side-pqkd.onrender.com/user_side/checkauth", {
+      const data = await fetch(
+        //"https://myapp-server-side-pqkd.onrender.com/user_side/checkauth",
+         {
         headers: {
           'Authorization':`${token}`,
           "Content-Type":"application/json"
