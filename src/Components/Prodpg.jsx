@@ -234,12 +234,12 @@ const ProductCard = () => {
         {cart.map((card) => (
           <StyledCard key={card._id}>
             <Box sx={{ position: "relative" }}>
-              <ProductImage
+{/*               <ProductImage
                 image={
                   `https://myapp-server-side-pqkd.onrender.com/uploads/${card.prodImage.replace("uploads","")}`
                 }
                 title="Product"
-              />
+              /> */}
 
               <PriceBox>
                 <Typography
