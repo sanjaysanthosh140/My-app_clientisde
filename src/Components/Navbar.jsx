@@ -86,8 +86,8 @@ function Navbar() {
         </Typography>
         {!isMobile && (
           <>
-            <Button color="inherit" component={Link} to="/login">
-              Login
+            <Button color="inherit" component={Link} to="/prod">
+              product
             </Button>
             <Button color="inherit" component={Link} to="/signup">
               Signup
