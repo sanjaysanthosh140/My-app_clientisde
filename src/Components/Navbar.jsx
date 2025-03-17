@@ -41,8 +41,8 @@ function Navbar() {
       sx={{ backgroundColor: "lightblue", height: "100%" }}
     >
       <List>
-        <ListItem buttonbase="value" component={Link} to="/login">
-          <ListItemText primary="Login" sx={{ color: "white" }} />
+        <ListItem buttonbase="value" component={Link} to="/prod">
+          <ListItemText primary="product" sx={{ color: "white" }} />
         </ListItem>
         <ListItem buttonbase="value" component={Link} to="/signup">
           <ListItemText primary="Signup" sx={{ color: "white" }} />
