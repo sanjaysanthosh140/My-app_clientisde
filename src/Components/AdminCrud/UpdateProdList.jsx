@@ -41,7 +41,7 @@ function UpdateProdList() {
   useEffect(() => {
     try {
       const response = fetch(
-        "http://localhost:4000/admin_side/get_all_products"
+        "https://myapp-server-side-pqkd.onrender.com/admin_side/get_all_products"
       );
       if (response) {
         response
