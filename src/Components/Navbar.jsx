@@ -41,8 +41,13 @@ function Navbar() {
       sx={{ backgroundColor: "lightblue", height: "100%" }}
     >
       <List>
+<<<<<<< HEAD
         <ListItem buttonbase="value" component={Link} to="/prod">
           <ListItemText primary="products" sx={{ color: "white" }} />
+=======
+        <ListItem buttonbase="value" component={Link} to="/login">
+          <ListItemText primary="login" sx={{ color: "white" }} />
+>>>>>>> b4c1e7ae60ba1117584482b49e18b205163f035a
         </ListItem>
         <ListItem buttonbase="value" component={Link} to="/signup">
           <ListItemText primary="Signup" sx={{ color: "white" }} />
@@ -87,7 +92,7 @@ function Navbar() {
         {!isMobile && (
           <>
             <Button color="inherit" component={Link} to="/login">
-              Login
+              login
             </Button>
             <Button color="inherit" component={Link} to="/signup">
               Signup
