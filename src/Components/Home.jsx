@@ -54,7 +54,10 @@ const Home = () => {
       <Grid item xs={6}>
         <Box display="grid" gridTemplateRows="repeat(auto-fill, minmax(100px, 1fr))" gap={4}>
           <ImageContainer>
+            <a href="">
+
             <img src="https://cdn.pixabay.com/photo/2024/05/21/19/57/glasses-8779028_640.jpg" alt="Image 1" style={{ width: '100%', height: 'auto', marginTop: '40px'}} />
+            </a>
           </ImageContainer>
           <ImageContainer>
             <img src="https://cdn.pixabay.com/photo/2014/07/24/11/06/web-400893_640.jpg" alt="Image 2" style={{ width: '100%', height: 'auto'}} />

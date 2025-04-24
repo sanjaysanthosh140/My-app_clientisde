@@ -31,7 +31,7 @@ function Frvcart() {
     try {
       let token = localStorage.getItem("token");
       let response = await axios.put(
-        "https://myapp-server-side-pqkd.onrender.com/user_side/decrement",
+        "http://localhost:4000/user_side/decrement",
         { proId, action },
         {
           headers: {
@@ -43,7 +43,7 @@ function Frvcart() {
       console.log("resForreFet", response);
       if (response) {
         const response = await axios.get(
-          "https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
+          "http://localhost:4000/user_side/Frv_carts",
           {
             withCredentials: true,
             headers: {
@@ -76,7 +76,7 @@ function Frvcart() {
     const token = localStorage.getItem("token");
     const getCartItes = async () => {
       const response = await axios.get(
-        "https://myapp-server-side-pqkd.onrender.com/user_side/Frv_carts",
+        "http://localhost:4000/user_side/Frv_carts",
         {
           withCredentials: true,
           headers: {
@@ -230,8 +230,9 @@ function Frvcart() {
                     <Grid item xs={12} sm={3}>
                       <Box
                         component="img"
-                        src="https://cdn-icons-png.freepik.com/256/9052/9052116.png?ga=GA1.1.1928443594.1716972653&semt=sph"
+                        src={`http://localhost:4000/uploads/${item.productImage.replace("uploads","")}`}
                         alt="Product"
+
                         sx={{
                           width: "100%",
                           borderRadius: 2,

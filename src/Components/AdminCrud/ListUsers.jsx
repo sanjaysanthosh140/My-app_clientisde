@@ -32,7 +32,7 @@ function ListUsers() {
     setusers(users.filter(user => user._id !== id));
     console.log("userId", id);
     let DeletResponse = axios.delete(
-      `https://myapp-server-side-pqkd.onrender.com/admin_side/delete_user/${id}`
+      `http://localhost:4000/admin_side/delete_user/${id}`
     );
     if (DeletResponse) {
       DeletResponse.then((res) => {
@@ -47,7 +47,7 @@ function ListUsers() {
   };
   const activeUser =async(id,status)=>{
     console.log(id,status)
-    let respons = await axios.put(`https://myapp-server-side-pqkd.onrender.com/admin_side/update_user_status/${id}`,{status:status})
+    let respons = await axios.put(`http://localhost:4000/admin_side/update_user_status/${id}`,{status:status})
      setusers(users.map(user=>{if(user._id===id){
       return{...user,isDisabled:status}
      }
@@ -70,7 +70,7 @@ function ListUsers() {
   }
 
   useEffect(() => {
-    let response = fetch("https://myapp-server-side-pqkd.onrender.com/admin_side/get_all_users", {
+    let response = fetch("http://localhost:4000/admin_side/get_all_users", {
       headers: {
         "Content-Type": "application/json",
       },

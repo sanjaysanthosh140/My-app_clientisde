@@ -19,7 +19,7 @@ function DeleteProd() {
       console.log(id);
       setProductItes(productItems.filter((product) => product._id !== id));
       const response = await axios.delete(
-        `https://myapp-server-side-pqkd.onrender.com/admin_side/delete_product/${id}`
+        `http://localhost:4000/admin_side/delete_product/${id}`
       );
       if (response) {
         console.log("respoD", response);
@@ -41,7 +41,7 @@ function DeleteProd() {
   };
   useEffect(() => {
     const prodData = fetch(
-      "https://myapp-server-side-pqkd.onrender.com/admin_side/get_all_products",
+      "http://localhost:4000/admin_side/get_all_products",
       {
         headers: {
           "Content-Type": "application/json",
@@ -172,7 +172,7 @@ function DeleteProd() {
                 transition={{ duration: 0.3 }}
               >
                 <img
-                  src={`https://myapp-server-side-pqkd.onrender.com/uploads/${product.prodImage.replace(
+                  src={`http://localhost:4000/uploads/${product.prodImage.replace(
                     "uploads",
                     ""
                   )}`}

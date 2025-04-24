@@ -50,7 +50,7 @@ function UpdateProd(prod) {
     // formData.append("prodDescription",updateData.prodDescription);
     // formData.append("prodPrice",updateData.prodPrice);
     // formData.append("prodImage",updateData.prodImage);
-   await axios.post("https://myapp-server-side-pqkd.onrender.com/admin_side/update_product",updateData,{
+   await axios.post("http://localhost:4000/admin_side/update_product",updateData,{
       headers: {
         'Content-Type': 'multipart/form-data'
     }
@@ -190,7 +190,7 @@ function UpdateProd(prod) {
               ) : (
                 <Box sx={{ mt: 2 }}>
                   <img
-                    src={`https://myapp-server-side-pqkd.onrender.com/uploads/${updateData.prodImage.replace(
+                    src={`http://localhost:4000/uploads/${updateData.prodImage.replace(
                       "uploads",
                       ""
                     )}`}
