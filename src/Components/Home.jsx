@@ -1,12 +1,13 @@
 import React from 'react';
 import { Grid, Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import {useNavigate} from "react-router-dom";
 
 const ImageContainer = styled(Box)({
   overflow: 'hidden',
   borderRadius: '40%',
   position: 'relative',
-  '& img:nth-of-type(1)': {
+  '& img:nth-of-ty               pe(1)': {
     animation: 'float 3s ease-in-out infinite'
   },
   '& img:nth-of-type(2)': {
@@ -49,27 +50,25 @@ const ContentBox = styled(Box)({
 });
 
 const Home = () => {
+  const navigator = useNavigate();
   return (
     <Grid container spacing={2}>
       <Grid item xs={6}>
         <Box display="grid" gridTemplateRows="repeat(auto-fill, minmax(100px, 1fr))" gap={4}>
           <ImageContainer>
-            <a href="">
-
-            <img src="https://cdn.pixabay.com/photo/2024/05/21/19/57/glasses-8779028_640.jpg" alt="Image 1" style={{ width: '100%', height: 'auto', marginTop: '40px'}} />
-            </a>
+            <img src="https://cdn.pixabay.com/photo/2024/05/21/19/57/glasses-8779028_640.jpg" alt="Image 1" style={{ width: '100%', height: 'auto', marginTop: '40px'}} onClick={()=>navigator('/stack_python')}/>
           </ImageContainer>
           <ImageContainer>
-            <img src="https://cdn.pixabay.com/photo/2014/07/24/11/06/web-400893_640.jpg" alt="Image 2" style={{ width: '100%', height: 'auto'}} />
+            <img src="https://cdn.pixabay.com/photo/2014/07/24/11/06/web-400893_640.jpg" alt="Image 2" style={{ width: '100%', height: 'auto'}} onClick={()=>navigator('/stack_js')}/>
           </ImageContainer>
           <ImageContainer>
-            <img src="https://cdn.pixabay.com/photo/2024/08/20/15/17/burger-8983662_640.jpg" alt="Image 3" style={{ width: '100%', height: 'auto'}} />
+            <img src="https://cdn.pixabay.com/photo/2024/08/20/15/17/burger-8983662_640.jpg" alt="Image 3" style={{ width: '100%', height: 'auto'}} onClick={()=>navigator('/stack_Ml')} />
           </ImageContainer>
           <ImageContainer>
-            <img src="https://cdn.pixabay.com/photo/2024/10/09/14/20/ai-generated-9108436_640.png" alt="Image 4" style={{ width: '100%', height: 'auto'}} />
+            <img src="https://cdn.pixabay.com/photo/2024/10/09/14/20/ai-generated-9108436_640.png" alt="Image 4" style={{ width: '100%', height: 'auto'}} onClick={()=>navigator('/stack_datascience')}/>
           </ImageContainer>
           <ImageContainer>
-            <img src="https://cdn.pixabay.com/photo/2017/08/19/12/00/design-2658294_640.jpg" alt="Image 5" style={{ width: '100%', height: 'auto'}} />
+            <img src="https://cdn.pixabay.com/photo/2017/08/19/12/00/design-2658294_640.jpg" alt="Image 5" style={{ width: '100%', height: 'auto'}} onClick={()=>navigator('/stack_cyber')}/>
           </ImageContainer>
         </Box>
       </Grid>

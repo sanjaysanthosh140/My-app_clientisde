@@ -20,8 +20,10 @@ const backgroundImages = [
     { title: 'Update Product', icon: <BsPencilSquare size={24} />, path: '/update-product' },
     { title: 'View All Products', icon: <BsGrid size={24} />, path: '/all-products' },
     { title: 'View Users', icon: <BsPeople size={24} />, path: '/users' },
-    { title: 'Remove Users', icon: <BsPersonX size={24} />, path: '/remove-users' },
-    { title: 'Block Users', icon: <BsShieldLock size={24} />, path: '/block-users' },
+    { title: 'Add_Home_contend', icon: <BsPersonX size={24} />, path: '/Home_contend' },
+    { title: 'update_Home', icon: <BsShieldLock size={24} />, path: '/update_home' },
+    //{ title: 'update_Home', icon: <BsShieldLock size={24} />, path: '/update_home' },
+    { title: 'delete_Home', icon: <BsShieldLock size={24} />, path: '/delete_Home' },
   ];
 
   return (
