@@ -8,13 +8,18 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import { FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash  } from "react-icons/fa";
 import axios from "axios";
+import Home_update from "./Home_update";
 
-// Sample data - replace with your actual daJta source
+// Sample data - replace with your actual data source
 const Delete_home_cont = () => {
-
-  const [hoemContents, setHomeContents] = useState([]);
+  const [gainupdate, setgainupdate] = useState(false);
+  const [updateData,setupdateData] = useState([]);
+  const [hoemContents, setHomeContents] = useState([{
+    description:"",
+    home_Image:""
+   }]);
   const handleDelete = async (id) => {
     try {
       console.log(id);
@@ -26,13 +31,31 @@ const Delete_home_cont = () => {
           },
         }
       );
-      if(response){
-        console.log("respont",response);
+      if (response) {
+        console.log("respont", response);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const  handleEdit =(id)=>{
+    try {
+      axios.get(`http://localhost:4000/admin_side/get_home_update/${id}`,{
+        headers:{
+          "Content-Type":"application/json"
+        }
+      }).then((data)=>{
+        console.log(data);
+        const upsdateData = data.data
+        setupdateData(upsdateData);
+        console.log("use",updateData);
+        setgainupdate(true);
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     fetch("http://localhost:4000/admin_side/get_home_cont", {
       headers: {
@@ -54,11 +77,19 @@ const Delete_home_cont = () => {
       });
   }, []);
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography
+    <>
+    {
+      gainupdate && updateData ?(
+        <Home_update 
+        productData={updateData}
+        updategain={setgainupdate}
+        />
+      ):(
+        <Box sx={{ p: 3 }}>
+        <Typography
         variant="h4"
         sx={{ mb: 4, fontWeight: "bold", color: "#333" }}
-      >
+        >
         Manage Home Content
       </Typography>
 
@@ -76,14 +107,14 @@ const Delete_home_cont = () => {
                   boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
                 },
               }}
-            >
+              >
               <CardMedia
                 component="img"
                 height="200"
                 image={`http://localhost:4000/uploads/${item.imagePath}`}
                 alt={`Home content ${item.id}`}
                 sx={{ objectFit: "cover" }}
-              />
+                />
               <CardContent sx={{ flexGrow: 1, p: 2 }}>
                 <Typography variant="body1" sx={{ mb: 2 }}>
                   {item.description}
@@ -102,8 +133,25 @@ const Delete_home_cont = () => {
                       },
                     }}
                     onClick={() => handleDelete(item.id)}
-                  >
+                    >
                     Delete
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<FaEdit />}
+                    sx={{
+                      borderRadius: "8px",
+                      textTransform: "none",
+                      fontWeight: "bold",
+                      "&:hover": {
+                        backgroundColor: "#d32f2f",
+                      },
+                    }}
+                    onClick={() => handleEdit(item.id)}
+                    >
+                    Edit
                   </Button>
                 </Box>
               </CardContent>
@@ -111,7 +159,11 @@ const Delete_home_cont = () => {
           </Grid>
         ))}
       </Grid>
+    
+      
     </Box>
+      )}
+  </>
   );
 };
 
