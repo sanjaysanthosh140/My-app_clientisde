@@ -21,7 +21,7 @@ const backgroundImages = [
     { title: 'View All Products', icon: <BsGrid size={24} />, path: '/all-products' },
     { title: 'View Users', icon: <BsPeople size={24} />, path: '/users' },
     { title: 'Add_Home_contend', icon: <BsPersonX size={24} />, path: '/Home_contend' },
-    { title: 'update_Home', icon: <BsShieldLock size={24} />, path: '/update_home' },
+    { title: 'update_Home', icon: <BsShieldLock size={24} />, path: '/sub_home_upload' },
     //{ title: 'update_Home', icon: <BsShieldLock size={24} />, path: '/update_home' },
     { title: 'delete_Home', icon: <BsShieldLock size={24} />, path: '/delete_Home' },
   ];

@@ -80,11 +80,11 @@ const Home_update = ({ productData, updategain }) => {
     sendfile.append("description", updata.description);
     sendfile.append("home_Image", updata.home_Image);
     console.log("send_File", sendfile);
-    console.log("updatd data", updata);
+    console.log("updatd dataHome", updata.home_Image);
     try {
       await axios.post("http://localhost:4000/admin_side/update_home_data",sendfile,{
         headers: {
-          "Content-Type":"multipart/form-data"
+          'Content-Type':'multipart/form-data'
         }
       }).then((res)=>{
         console.log(res);

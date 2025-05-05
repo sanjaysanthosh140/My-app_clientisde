@@ -163,7 +163,7 @@ function DeleteProd() {
                 boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  boxShadow: "0 15px 35px rgba(0,0,0,0.15)",
+                  boxShadow: "0 15px 35px rgba(1, 1, 1, 0.15)",
                 },
               }}
             >

@@ -18,6 +18,7 @@ import Stackcomponent from "./Components/Stackcomponent";
 import HomeAdd from "./Components/AdminCrud/HomeAdd";
 import Home_update from "./Components/AdminCrud/Home_update";
 import Delete_home_cont from "./Components/AdminCrud/Delete_home_cont";
+import HomeSub_cont from "./Components/AdminCrud/HomeSub_cont";
 
 
 function App() {
@@ -33,17 +34,17 @@ function App() {
           <Route path="/prod" element={<Prodpg />} />
 
           <Route path="/stack_python" element={<Stackcomponent stack={'python'}/>}/>
-          <Route path="/stack_js" element={<Stackcomponent stack={'java_script'}/>}/>
+          <Route path="/stack_js" element={<Stackcomponent stack={'express'}/>}/>
           <Route path="/stack_Ml" element={<Stackcomponent stack={'mechine_learning'}/>}/>
           <Route path="/stack_datascience" element={<Stackcomponent stack={'data_sciences'}/>}/>
           <Route path="/stack_cyber" element={<Stackcomponent stack={'cyber_security'}/>}/>
 
           <Route path="/Cart" element={
-
             <ProtectRoute>
               <Frvcart/>
             </ProtectRoute>
             } />
+            
           <Route path="/admin" element={<Setting/>} />
           <Route path="/Dashboard" element={<Dashboard/>} />
           <Route path="/add-product" element={<Adprod/>} />
@@ -51,7 +52,7 @@ function App() {
           <Route path="/users" element={<ListUsers/>} />
           <Route path="/update-product" element={<UpdateProdList/>} />
           <Route path="/Home_contend" element={<HomeAdd/>}/>
-          <Route path="/update_home"  element={<Home_update/>}/>
+          <Route path="/sub_home_upload"  element={<HomeSub_cont/>}/>
           <Route path="/delete_Home"  element={<Delete_home_cont/>} />
           <Route path="/Wish" element={<Wishlist/>} />
           
