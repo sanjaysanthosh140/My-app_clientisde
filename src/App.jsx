@@ -19,6 +19,9 @@ import HomeAdd from "./Components/AdminCrud/HomeAdd";
 import Home_update from "./Components/AdminCrud/Home_update";
 import Delete_home_cont from "./Components/AdminCrud/Delete_home_cont";
 import HomeSub_cont from "./Components/AdminCrud/HomeSub_cont";
+import Tools_list from "./Components/Tools_list";
+import Sub_home_contUpdate from "./Components/sub_home_contUpdate";
+
 
 
 function App() {
@@ -38,7 +41,7 @@ function App() {
           <Route path="/stack_Ml" element={<Stackcomponent stack={'mechine_learning'}/>}/>
           <Route path="/stack_datascience" element={<Stackcomponent stack={'data_sciences'}/>}/>
           <Route path="/stack_cyber" element={<Stackcomponent stack={'cyber_security'}/>}/>
-
+          <Route path="/ai_web_tools" element={<Tools_list/>}/>
           <Route path="/Cart" element={
             <ProtectRoute>
               <Frvcart/>
@@ -55,7 +58,7 @@ function App() {
           <Route path="/sub_home_upload"  element={<HomeSub_cont/>}/>
           <Route path="/delete_Home"  element={<Delete_home_cont/>} />
           <Route path="/Wish" element={<Wishlist/>} />
-          
+          <Route path="/all-products" element={<Sub_home_contUpdate/>}/>
         </Routes>
       </BrowserRouter>
     </>

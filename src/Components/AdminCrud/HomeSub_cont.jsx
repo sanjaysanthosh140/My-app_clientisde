@@ -39,7 +39,7 @@ const HomeSub_cont = () => {
       // Create a new array by copying the existing prodImg array
       const newProdImg = [...formData.prodImg];
 
-      // Add the new file to the array
+      // Add the new file to the __--array
       // This will simply append each new file to the array
       newProdImg.push(file);
 
@@ -129,7 +129,7 @@ const HomeSub_cont = () => {
                 required
               />
             </Grid>
-
+           
             <Grid item xs={12} sm={6}>
               <TextField
                 id="texts"
@@ -152,6 +152,8 @@ const HomeSub_cont = () => {
                 required
               />
             </Grid>
+
+
 
             <Grid item xs={12} sm={6}>
               <TextField
@@ -176,6 +178,8 @@ const HomeSub_cont = () => {
               />
             </Grid>
 
+
+
             <Grid item xs={12} sm={6}>
               <TextField
                 id="texts"
@@ -198,6 +202,8 @@ const HomeSub_cont = () => {
                 required
               />
             </Grid>
+
+
 
             {/* File Upload Inputs */}
             <Grid item xs={12}>

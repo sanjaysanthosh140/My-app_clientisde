@@ -20,6 +20,7 @@ import {
   FaDocker,
   FaGithub
 } from "react-icons/fa";
+import { gql,useQuery} from '@apollo/client';
 
 // Enhanced styled components with vertical scrolling and hover effects
 const TechStacksContainer = styled(Box)(({ theme }) => ({
@@ -150,66 +151,16 @@ const GradientText = styled(Typography)({
   marginBottom: "15px",
 });
 
-// Sample tech stack data (replace with your actual data)
-const techStacks = [
-  {
-    id: 1,
-    title: "Python Development",
-    description: "Build powerful applications with Python's versatile ecosystem",
-    image: "https://images.unsplash.com/photo-1526379879527-8559ecfcb0c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-    route: "/stack_python",
-    icon: <FaPython />,
-  },
-  {
-    id: 2,
-    title: "JavaScript Development",
-    description: "Create interactive web applications with modern JavaScript",
-    image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-    route: "/stack_js",
-    icon: <FaJs />,
-  },
-  {
-    id: 3,
-    title: "React Development",
-    description: "Build modern user interfaces with React's component-based architecture",
-    image: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    route: "/stack_react",
-    icon: <FaReact />,
-  },
-  {
-    id: 4,
-    title: "Data Science",
-    description: "Analyze and visualize complex data to extract valuable insights",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    route: "/stack_datascience",
-    icon: <FaDatabase />,
-  },
-  {
-    id: 5,
-    title: "Cybersecurity",
-    description: "Protect systems and networks with advanced security techniques",
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    route: "/stack_cyber",
-    icon: <FaShieldAlt />,
-  },
-];
+
 
 const Home = () => {
   const [stacks, setStacks] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loadings, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
 
   // Fetch data from server
   useEffect(() => {
-    // Simulating data fetch - replace with your actual API call
-    // setTimeout(() => {
-      // setStacks(techStacks); // Replace with your actual data
-      // console.log("Data",techStacks);
-      // setLoading(false);
-    // }, 1000);
-    
-    // Uncomment and modify this for your actual API call
    
     fetch("http://localhost:4000/admin_side/get_home_cont", {
       headers: {
@@ -289,7 +240,7 @@ const Home = () => {
         </Grid>
 
         <Grid item xs={12} md={7}>
-          {loading ? (
+          {loadings ? (
             <Box
               display="flex"
               justifyContent="center"
@@ -305,7 +256,7 @@ const Home = () => {
                   <CardImage src={`http://localhost:4000/uploads/${stack.home_Image}`} alt={stack.title} />
                   <CardOverlay className="card-overlay" />
                   <IconContainer className="card-icon">
-                    {stack.icon}
+
                   </IconContainer>
                   <CardContent className="card-content">
                     <CardTitle variant={isMobile ? "h5" : "h4"}>

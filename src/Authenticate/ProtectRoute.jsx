@@ -8,6 +8,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import { Cookies } from "react-cookie";
 function ProtectRoute({ children }) {
   let [auth, setAuth] = useState(false);
   let [loading, setloading] = useState(true);
@@ -19,6 +20,7 @@ function ProtectRoute({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    
     const FetchAuth = async () => {
       // console.log('token',token)
       const data = await fetch(
