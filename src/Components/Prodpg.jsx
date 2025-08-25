@@ -10,7 +10,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { keyframes } from "@mui/system";
+import { keyframes, margin } from "@mui/system";
 import { Cookies } from "react-cookie";
 import axios from "axios";
 // Custom styled components
@@ -328,6 +328,7 @@ const ProductCard = () => {
           </StyledCard>
         ))}
       </Box>
+      <h1>welcome page is currently empity</h1>
     </>
   );
 };

@@ -32,10 +32,48 @@ function Stackcomponent(stack) {
 
     fetchData();
   }, []);
-  const handleClick = (title) => {
-    console.log("title",title);
-    if (title == "express") {
-      navigate("/ai_web_tools");
+  const handleClick = (title) => { 
+    switch (title) {
+      case "express": {
+        navigate("/ai_web_tools");
+        break;
+      }
+      case "API": {
+        navigate("/api");
+        break;
+      }
+      case "mongodb": {
+        navigate("/mongo_db");
+        break;
+      }
+      case "react": {
+        navigate("/react");
+        break;
+      }
+      case "mechine_learning": {
+        navigate("/mechine_learning");
+        break;
+      }
+      case "mlops": {
+        navigate("/ml_ops");
+        break;
+      }
+      case "neural_network": {
+        navigate("/neural_network");
+        break;
+      }
+      case "deep_learning": {
+        navigate("/deep_learning");
+        break;
+      }
+      case "cyber_security":{
+        navigate("/cyber_security");
+        break;
+      }
+      case "Network_Security":{
+        navigate("/Networ_Security");
+        break;
+      }
     }
   };
   return (

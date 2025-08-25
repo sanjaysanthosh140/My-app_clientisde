@@ -41,7 +41,13 @@ function App() {
           <Route path="/stack_Ml" element={<Stackcomponent stack={'mechine_learning'}/>}/>
           <Route path="/stack_datascience" element={<Stackcomponent stack={'data_sciences'}/>}/>
           <Route path="/stack_cyber" element={<Stackcomponent stack={'cyber_security'}/>}/>
-          <Route path="/ai_web_tools" element={<Tools_list/>}/>
+
+          {/* sub_home routes */}
+          <Route path="/ai_web_tools" element={<Tools_list props={"web"}/>}/>
+          <Route path="/api" element={<Tools_list props={"app"}/>}/>
+          <Route path="/mongo_db" element={<Tools_list props={"work"}/>}/>
+          <Route path="/react" element={<Tools_list props={"work"}/>}/>
+          
           <Route path="/Cart" element={
             <ProtectRoute>
               <Frvcart/>

@@ -48,7 +48,7 @@ import { HiSparkles } from "react-icons/hi";
 import axios from "axios";
 
 const SubHomeContent = () => {
-  const [homeContents, setHomeContents] = useState([]);
+  const [homeContents, setHomeContents] = useState([]); // stored fetch data 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
@@ -68,7 +68,7 @@ const SubHomeContent = () => {
         );
 
         if (response.data) {
-          console.log("Fetched data:", response.data);
+        console.log(response.data)
           setHomeContents(response.data);
         }
       } catch (error) {
@@ -94,6 +94,7 @@ const SubHomeContent = () => {
   // Handle main image change
   const handleMainImageChange = (mainIndex, e) => {
     if (e.target.files && e.target.files[0]) {
+      console.log("selected",e.target.files[0])
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
 
@@ -106,11 +107,11 @@ const SubHomeContent = () => {
       );
     }
   };
-
   // Handle sub content changes
   const handleSubContentChange = (mainIndex, subIndex, field, value) => {
     setHomeContents((prevContents) =>
       prevContents.map((content, index) =>
+       
         index === mainIndex
           ? {
               ...content,
@@ -123,7 +124,9 @@ const SubHomeContent = () => {
           : content
       )
     );
+    
   };
+
 
   // Handle sub content image change
   const handleSubImageChange = (mainIndex, subIndex, e) => {
@@ -149,6 +152,7 @@ const SubHomeContent = () => {
     }
   };
 
+
   // Handle save changes
   const handleSaveChanges = async () => {
     try {
@@ -159,23 +163,27 @@ const SubHomeContent = () => {
 
       homeContents.forEach((content, mainIndex) => {
         if (content.image && typeof content.image === "object") {
-          formData.append(`mainImage_${mainIndex}`, content.image);
+          formData.append("main_img" ,content.image);
         }
 
         if (content.sub_home_data) {
           content.sub_home_data.forEach((subContent, subIndex) => {
             if (subContent.image && typeof subContent.image === "object") {
               formData.append(
-                `subImage_${mainIndex}_${subIndex}`,
+                "sub_img",
                 subContent.image
               );
             }
           });
         }
       });
+      
+      // formData.forEach((cont,i)=>{
+        // console.log(cont)
+      // })
 
       await axios.put(
-        "http://localhost:4000/admin_side/update_home_content",
+        "http://localhost:4000/admin_side/all_home_content_update",
         formData,
         {
           headers: {
@@ -183,7 +191,7 @@ const SubHomeContent = () => {
           },
         }
       );
-
+            //  
       alert("Content updated successfully!");
     } catch (error) {
       console.error("Failed to save changes:", error);
@@ -192,6 +200,8 @@ const SubHomeContent = () => {
       setSaving(false);
     }
   };
+
+
 
   if (loading) {
     return (
@@ -556,29 +566,6 @@ const SubHomeContent = () => {
                               },
                             }}
                           />
-                          <TextField
-                            fullWidth
-                            label="Description"
-                            value={homeContent.description || ""}
-                            onChange={(e) =>
-                              handleMainContentChange(
-                                mainIndex,
-                                "description",
-                                e.target.value
-                              )
-                            }
-                            variant="outlined"
-                            multiline
-                            rows={4}
-                            sx={{
-                              "& .MuiOutlinedInput-root": {
-                                borderRadius: 2,
-                                "&:hover fieldset": {
-                                  borderColor: "primary.main",
-                                },
-                              },
-                            }}
-                          />
                         </Box>
                       </Grid>
                     </Grid>
@@ -712,7 +699,7 @@ const SubHomeContent = () => {
                                         handleSubContentChange(
                                           mainIndex,
                                           subIndex,
-                                          "name",
+                                          "title",
                                           e.target.value
                                         )
                                       }
