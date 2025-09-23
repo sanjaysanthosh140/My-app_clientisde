@@ -47,9 +47,6 @@ function Navbar() {
         <ListItem buttonbase="value" component={Link} to="/signup">
           <ListItemText primary="Signup" sx={{ color: "white" }} />
         </ListItem>
-        <ListItem buttonbase="value" component={Link} to="/cart">
-          <ListItemText primary="cart" sx={{ color: "white" }} />
-        </ListItem>
         <ListItem buttonbase="value" component={Link} to="/Wish">
           <ListItemText primary="Wish" sx={{ color: "white" }} />
         </ListItem>
@@ -91,9 +88,6 @@ function Navbar() {
             </Button>
             <Button color="inherit" component={Link} to="/signup">
               Signup
-            </Button>
-            <Button color="inherit" component={Link} to="/Cart">
-              Cart
             </Button>
             <Button color="inherit" component={Link} to="/Wish">
              Wish

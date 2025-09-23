@@ -32,50 +32,101 @@ function Stackcomponent(stack) {
 
     fetchData();
   }, []);
-  const handleClick = (title) => { 
+  const handleClick = (title) => {
     switch (title) {
-      case "express": {
-        navigate("/ai_web_tools");
+      case "AI_web_tools": {
+        navigate("/AI_web_tools");
+        break;
+      }
+      case "AI_SQL_query_tools": {
+        navigate("/db_query");
         break;
       }
       case "API": {
         navigate("/api");
         break;
       }
-      case "mongodb": {
-        navigate("/mongo_db");
+      case "AI_APP_tools": {
+        navigate("/app");
         break;
       }
-      case "react": {
-        navigate("/react");
+      // Drop_ship
+      case "Drop_shiping": {
+        navigate("/web_design_tools");
         break;
       }
-      case "mechine_learning": {
-        navigate("/mechine_learning");
+      case "google_ADD's": {
+        navigate("/google_add");
         break;
       }
-      case "mlops": {
-        navigate("/ml_ops");
+      case "Shopify_store": {
+        navigate("/shopify_store");
         break;
       }
-      case "neural_network": {
-        navigate("/neural_network");
+      case "SEO_TOOLS": {
+        navigate("/seo_tool");
         break;
       }
-      case "deep_learning": {
-        navigate("/deep_learning");
+      //ai_detetion;
+      case "AI_DETECTOR": {
+        navigate("/ai_free_tools");
         break;
       }
-      case "cyber_security":{
-        navigate("/cyber_security");
+      case "AI_Bypasser": {
+        navigate("/ai_bypasser");
         break;
       }
-      case "Network_Security":{
-        navigate("/Networ_Security");
+      case "AI_Content_detector": {
+        navigate("/ai_content_detect");
         break;
+      }
+      case "AI_Humanizor": {
+        navigate("/ai_humanizor");
+        break;
+      }
+
+      // ai_education_tools
+      case "AI_Education_tools": {
+        navigate("/edu_tool");
+        break;
+      }
+      case "image_analist": {
+        navigate("/edu_img");
+        break;
+      }
+      case "mind_maping": {
+        navigate("/edu_mind_map");
+        break;
+      }
+      case "video_summizor": {
+        navigate("/edu_video");
+        break;
+      }
+
+      // video_generator
+      case "AI_Video_Generator": {
+        navigate("/AI_Video_Generator");
+        break;
+      }
+      case "Ai_video_summarizor": {
+        navigate("/Ai_video_summarizor");
+        break;
+      }
+      case "convert_to_short": {
+        navigate("/convert_to_short");
+        break;
+      }
+      case "UGC_video": {
+        navigate("/UGC_video");
+        break;
+      }
+
+      default: {
+        alert(title);
       }
     }
   };
+
   return (
     <div className="wrapper">
       <div className="container">

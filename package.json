@@ -19,7 +19,7 @@
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.7.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "axios": "^1.7.9",
+    "axios": "^1.12.1",
     "dotenv": "^16.4.7",
     "framer-motion": "^12.1.0",
     "graphql": "^16.11.0",

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 import {
   Box,
   Grid,
@@ -8,75 +9,65 @@ import {
   IconButton,
   Button,
   Chip,
- Snackbar,
- Alert
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { USER_PINNED } from "../lib/Pin_Query";
 
 function Wishlist() {
-  let [message,setmessage] = useState({
-    message:"",
-    severity:"",
-    open:false
-  })
-let [ wishItem,setwishItem] = useState([])
-const handleDelete = async(id) =>{
-  setwishItem(wishItem.filter((item)=>item._id !== id))
-  const token = localStorage.getItem("token")
-   axios.delete(
-    `http://localhost:4000/user_side/delete_wish/${id}`,
-    {
-    withCredentials:true,
-    headers:{
-      Authorization: `${token}`,
-      "Content-Type":"application/json",
-    }
-     
-   }).then((res)=>{
-    console.log("res",res)
-    setmessage({
-      message:"Item Deleted Successfully",
-      severity:"success",
-      open:true
-   })
-   })
-  console.log("id",id)
-  
-}
+  let [message, setmessage] = useState(false);
+  let [wishItem, setwishItem] = useState([]);
 
-const handleColose =()=>{
-  setmessage({
-    ...message,
-    open:false
-  })
-}
+  const { loading, error, data } = useQuery(USER_PINNED);
+
   useEffect(() => {
-    try {
-      const token = localStorage.getItem("token")
-      async function fetchWish(){
-           await fetch(
-            'http://localhost:4000/user_side/retrive_wish',
-            {
-            method:'Get',
-             headers:{
-               'Authorization': `${token}`,
-               "Content-Type":"application/json",
-              },
-              credentials:"include"
-           }).then((data)=>data.json().then((response)=>
-           
-            setwishItem(response[0].result)
-          ))
-      }
-      fetchWish()
-    } catch (error) {
-      consol.log(error);
+    if (loading) {
+      console.log("loading...");
+    } else if (data) {
+      //console.log("data", data);
+      //console.log(data.frv_toolslist);
+      setwishItem(data.frv_toolslist);
+    } else if (error) {
+      console.log("error", error);
     }
-  }, []);
-   console.log("wish",wishItem)
+  }, [loading, data, error]);
+  if (wishItem) {
+    console.log("working")
+    console.log(wishItem);
+  }
+  const handleDelete = async (id) => {
+    // setwishItem(wishItem.filter((item) => item._id !== id));
+    // const token = localStorage.getItem("token");
+    // axios
+    //   .delete(`http://localhost:4000/user_side/delete_wish/${id}`, {
+    //     withCredentials: true,
+    //     headers: {
+    //       Authorization: `${token}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     //console.log("res", res);
+    //     setmessage({
+    //       message: "Item Deleted Successfully",
+    //       severity: "success",
+    //       open: true,
+    //     });
+    //   });
+    // //console.log("id", id);
+  };
+
+  const handleColose = () => {
+    setmessage({
+      ...message,
+      open: false,
+    });
+  };
+
   const backgroundIcons = [
     {
       id: 1,
@@ -180,149 +171,351 @@ const handleColose =()=>{
         </motion.div>
       ))}
 
-      {/* Original Wishlist content */}
+      {/* Pinned Tools Content */}
       <Box
         sx={{
           position: "relative",
           zIndex: 1,
-          p: { xs: 2, md: 4 },
+          p: { xs: 1, sm: 2, md: 3, lg: 4 },
           backdropFilter: "blur(5px)",
+          maxWidth: "100%",
+          width: "100%",
         }}
       >
-        <Grid container spacing={3}>
-          <Grid container spacing={3}>
-            {wishItem.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
+        <Box
+          sx={{
+            textAlign: "center",
+            mb: { xs: 3, sm: 4, md: 5 },
+            px: { xs: 1, sm: 2 },
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3rem", lg: "3.5rem" },
+              background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontWeight: "bold",
+              textAlign: "center",
+              letterSpacing: { xs: 1, sm: 2 },
+              mb: 1,
+            }}
+          >
+            My Favorite Tools
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+              maxWidth: "600px",
+              mx: "auto",
+            }}
+          >
+            Discover and manage your pinned development tools
+          </Typography>
+        </Box>
+
+        <Grid 
+          container 
+          spacing={{ xs: 2, sm: 3, md: 4 }}
+          sx={{
+            justifyContent: "center",
+            px: { xs: 1, sm: 2, md: 3 },
+          }}
+        >
+          {wishItem.map((tool, index) => {
+            const toolName = tool.name || tool.title || tool.toolName || 'Development Tool';
+            const toolPrice = tool.pricing || tool.cost || tool.amount || 'Free';
+            const toolDescription = tool.description || tool.desc || tool.details || 'No description available';
+            const toolCategory = tool.category || tool.type || tool.tags || 'General';
+            const toolUrl = tool.officialurl || tool.link || tool.website || tool.href || '#';
+            
+            return (
+              <Grid 
+                item 
+                xs={12} 
+                sm={6} 
+                md={4} 
+                lg={3}
+                key={tool._id || index}
+              >
                 <motion.div
-                  whileHover={{ y: -8 }}
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: item * 0.2,
+                  whileHover={{ 
+                    y: -12,
+                    scale: 1.03,
+                    transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                  }}
+                  animate={{ 
+                    y: [0, -2, 0],
+                    transition: {
+                      duration: 2 + index * 0.2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
                   }}
                 >
                   <Card
                     sx={{
-                      borderRadius: "16px",
-                      background: "rgba(255, 255, 255, 0.9)",
-                      backdropFilter: "blur(10px)",
-                      boxShadow: "0 8px 32px rgba(31, 38, 135, 0.15)",
-                      transition: "all 0.3s ease",
+                      height: { xs: "400px", sm: "420px", md: "450px" },
+                      borderRadius: "20px",
+                      background: "linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)",
+                      backdropFilter: "blur(20px)",
+                      boxShadow: "0 10px 40px rgba(0, 0, 0, 0.1)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
+                      overflow: "hidden",
+                      position: "relative",
+                      cursor: "pointer",
+                      transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                       "&:hover": {
-                        transform: "scale(1.02)",
-                        boxShadow: "0 12px 40px rgba(31, 38, 135, 0.25)",
+                        boxShadow: "0 25px 80px rgba(0, 0, 0, 0.15)",
+                        "& .tool-header": {
+                          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                        },
+                        "& .tool-icon": {
+                          transform: "scale(1.1) rotate(5deg)",
+                        },
+                        "& .delete-btn": {
+                          opacity: 1,
+                          transform: "scale(1)",
+                        },
+                        "& .view-btn": {
+                          background: "linear-gradient(45deg, #ff6b6b 0%, #feca57 100%)",
+                          transform: "translateY(-2px)",
+                        }
                       },
                     }}
                   >
-                    <Box sx={{ position: "relative", overflow: "hidden" }}>
-                      <img
-                       src={`http://localhost:4000/uploads/${item.prodImage.replace("uploads","")}`}
-                        alt="Product"
-                        style={{
-                          width: "100%",
-                          height: "200px",
-                          objectFit: "cover",
-                        }}
-                      />
-                      <IconButton
+                    {/* Delete Button */}
+                    <IconButton
+                      className="delete-btn"
+                      size="small"
+                      sx={{
+                        position: "absolute",
+                        top: 12,
+                        right: 12,
+                        zIndex: 3,
+                        opacity: 0,
+                        transform: "scale(0.8)",
+                        bgcolor: "rgba(255, 255, 255, 0.95)",
+                        backdropFilter: "blur(10px)",
+                        color: "#ff6b6b",
+                        width: 40,
+                        height: 40,
+                        transition: "all 0.3s ease",
+                        "&:hover": { 
+                          bgcolor: "#ff6b6b", 
+                          color: "white",
+                          transform: "scale(1.1)",
+                          boxShadow: "0 8px 25px rgba(255, 107, 107, 0.4)",
+                        },
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(tool._id);
+                      }}
+                    >
+                      <MdDeleteOutline />
+                    </IconButton>
+
+                    {/* Tool Header */}
+                    <Box
+                      className="tool-header"
+                      sx={{
+                        height: "120px",
+                        background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        position: "relative",
+                        transition: "all 0.4s ease",
+                      }}
+                    >
+                      <Box
+                        className="tool-icon"
                         sx={{
-                          position: "absolute",
-                          top: 8,
-                          right: 8,
-                          bgcolor: "white",
-                          "&:hover": { bgcolor: "#ff5c5c", color: "white" },
+                          width: 70,
+                          height: 70,
+                          borderRadius: "50%",
+                          background: "rgba(255, 255, 255, 0.2)",
+                          backdropFilter: "blur(10px)",
+                          border: "3px solid rgba(255, 255, 255, 0.3)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          transition: "all 0.3s ease",
                         }}
-                        onClick={()=> handleDelete(item._id)}
                       >
-                        <MdDeleteOutline />
-                      </IconButton>
+                        <Typography
+                          sx={{ 
+                            fontSize: "2rem",
+                            filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.2))",
+                          }}
+                        >
+                          🚀
+                        </Typography>
+                      </Box>
                     </Box>
 
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom noWrap>
-                         {item.prodName}
+                    <CardContent sx={{ p: 3, height: "calc(100% - 120px)", display: "flex", flexDirection: "column" }}>
+                      {/* Tool Name */}
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: "700",
+                          color: "text.primary",
+                          fontSize: { xs: "1.1rem", sm: "1.25rem" },
+                          lineHeight: 1.3,
+                          mb: 1,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                        }}
+                      >
+                        {String(toolName)}
                       </Typography>
 
-                      <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-                        <Chip
-                          label="New"
-                          size="small"
-                          color="primary"
-                          sx={{ borderRadius: "6px" }}
-                        />
-                        <Chip
-                          label="Limited"
-                          size="small"
-                          color="secondary"
-                          sx={{ borderRadius: "6px" }}
-                        />
-                      </Box>
+                      {/* Category Chip */}
+                      <Chip
+                        label={String(toolCategory)}
+                        size="small"
+                        sx={{
+                          mb: 2,
+                          width: "fit-content",
+                          bgcolor: "rgba(79, 172, 254, 0.1)",
+                          color: "primary.main",
+                          fontWeight: "600",
+                          fontSize: "0.7rem",
+                        }}
+                      />
 
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", mb: 2 }}
-                      >
+                      {/* Price */}
+                      <Box sx={{ mb: 2 }}>
                         <Typography
                           variant="h5"
-                          color="primary"
-                          sx={{ fontWeight: "bold" }}
-                        >
-                          ${(item.prodPrice * 1).toFixed(2)}
-                        </Typography>
-                        <Typography
-                          variant="body2"
                           sx={{
-                            textDecoration: "line-through",
-                            ml: 2,
-                            color: "text.secondary",
+                            fontWeight: "700",
+                            color: "#2e7d32",
+                            fontSize: { xs: "1.3rem", sm: "1.5rem" },
                           }}
                         >
-                          ${(item.prodPrice * 2).toFixed(2)}
+                          {typeof toolPrice === 'number' ? `$${toolPrice}` : String(toolPrice)}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ display: "flex", gap: 1 }}>
-                        <Button
-                          variant="contained"
-                          startIcon={<FaShoppingCart />}
-                          fullWidth
-                          sx={{
-                            borderRadius: "8px",
-                            background:
-                              "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
-                            "&:hover": {
-                              background:
-                                "linear-gradient(45deg, #21CBF3 30%, #2196F3 90%)",
-                            },
-                          }}
-                        >
-                          Add to Cart
-                        </Button>
-                        
-                        <IconButton
-                          sx={{
-                            bgcolor: "#f5f5f5",
-                            "&:hover": { bgcolor: "#ffebee", color: "#ff1744" },
-                          }}
-                        >
-                          <FaRegHeart />
-                        </IconButton>
-                      </Box>
+                      {/* Description */}
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "text.secondary",
+                          fontSize: "0.9rem",
+                          lineHeight: 1.5,
+                          flexGrow: 1,
+                          mb: 3,
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 4,
+                          WebkitBoxOrient: "vertical",
+                        }}
+                      >
+                        {String(toolDescription)}
+                      </Typography>
+
+                      {/* View Button */}
+                      <Button
+                        className="view-btn"
+                        variant="contained"
+                        fullWidth
+                        onClick={() => {
+                          if (toolUrl && toolUrl !== '#') {
+                            window.open(toolUrl, '_blank');
+                          }
+                        }}
+                        sx={{
+                          borderRadius: "15px",
+                          background: "linear-gradient(45deg, #667eea 0%, #764ba2 100%)",
+                          color: "white",
+                          fontWeight: "700",
+                          textTransform: "none",
+                          fontSize: "1rem",
+                          py: 1.5,
+                          boxShadow: "0 6px 20px rgba(102, 126, 234, 0.3)",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            boxShadow: "0 8px 30px rgba(102, 126, 234, 0.4)",
+                          },
+                        }}
+                      >
+                        {toolUrl && toolUrl !== '#' ? 'Visit Tool 🌐' : 'View Details 👀'}
+                      </Button>
                     </CardContent>
                   </Card>
                 </motion.div>
               </Grid>
-            ))}
-            <Snackbar open={message.open} autoHideDuration={6000} onClose={handleColose}>
-              <Alert severity={message.severity} open={message.open} onClose={handleColose} sx={{ width: '100%' }}>
-                {message.message}
-              </Alert>
-            </Snackbar>
-          </Grid>
+            );
+          })}
         </Grid>
+
+        {/* Empty State */}
+        {wishItem.length === 0 && (
+          <Box
+            sx={{
+              textAlign: "center",
+              py: { xs: 4, sm: 6, md: 8 },
+              px: { xs: 2, sm: 4 },
+            }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: { xs: "3rem", sm: "4rem", md: "5rem" },
+                mb: 2,
+              }}
+            >
+              🔍
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                color: "text.secondary",
+                mb: 1,
+                fontSize: { xs: "1.2rem", sm: "1.5rem" },
+              }}
+            >
+              No Tools Found
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                maxWidth: "400px",
+                mx: "auto",
+                fontSize: { xs: "0.9rem", sm: "1rem" },
+              }}
+            >
+              Start adding your favorite development tools to see them here
+            </Typography>
+          </Box>
+        )}
+
+        <Snackbar
+          open={message.open}
+          autoHideDuration={6000}
+          onClose={handleColose}
+        >
+          <Alert
+            severity={message.severity}
+            open={message.open}
+            onClose={handleColose}
+            sx={{ width: "100%" }}
+          >
+            {message.message}
+          </Alert>
+        </Snackbar>
       </Box>
-       
     </Box>
   );
 }

@@ -13,7 +13,7 @@ import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 function Login() {
   const messaging = (message) => {
     setmessage({
@@ -303,7 +303,10 @@ const hadleClose =() =>{
               },
             }}
           >
-            Don't have an account? Sign Up
+            <span style={{ color: "#333" }}>Don't have an account?</span>{" "}
+            <Link to="/signup" style={{ textDecoration: "none", color: "#0ef" }}>
+              Sign Up
+            </Link>
           </Typography>
         </Box>
       </Paper>
