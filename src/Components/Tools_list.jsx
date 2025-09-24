@@ -49,6 +49,7 @@ import { HiSparkles } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import keys from "../../keys";
 // Styled Components
 const StyledCard = styled(Card)(({ theme }) => ({
   height: "100%",
@@ -202,7 +203,7 @@ let alertFun = async (tool, id, category) => {
       toolName: tool,
       toolId: id,
     };
-    await axios.post(`http://localhost:4000/user_side/newCart/`, tooldetal, {
+    await axios.post(`${keys.SERVER_API_CALL}/user_side/newCart/`, tooldetal, {
     withCredentials: true,
     headers: {
     "Content-Type": "application/json",

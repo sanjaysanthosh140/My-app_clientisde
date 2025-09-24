@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { FiUpload, FiSave, FiX } from "react-icons/fi";
 import axios from "axios";
+import keys from "../../../keys";
 
 const HomeSub_cont = () => {
   const [formData, setformData] = useState({
@@ -71,7 +72,7 @@ const HomeSub_cont = () => {
     });
     //console.log(sendData);
     axios
-      .post("http://localhost:4000/admin_side/sub_multyImg", sendData, {
+      .post(`${keys.SERVER_API_CALL}/admin_side/sub_multyImg`, sendData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

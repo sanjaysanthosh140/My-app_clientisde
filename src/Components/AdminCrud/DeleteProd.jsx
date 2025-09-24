@@ -5,6 +5,7 @@ import { BiSearch } from "react-icons/bi";
 import { FiPackage } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import keys from "../../../keys";
 
 function DeleteProd() {
   const [productItems, setProductItes] = useState([]);
@@ -19,7 +20,7 @@ function DeleteProd() {
       console.log(id);
       setProductItes(productItems.filter((product) => product._id !== id));
       const response = await axios.delete(
-        `http://localhost:4000/admin_side/delete_product/${id}`
+        `${keys.SERVER_API_CALL}/admin_side/delete_product/${id}`
       );
       if (response) {
         console.log("respoD", response);
@@ -41,7 +42,7 @@ function DeleteProd() {
   };
   useEffect(() => {
     const prodData = fetch(
-      "http://localhost:4000/admin_side/get_all_products",
+      `${keys.SERVER_API_CALL}/admin_side/get_all_products`,
       {
         headers: {
           "Content-Type": "application/json",

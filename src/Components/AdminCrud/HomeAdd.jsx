@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { FiUpload, FiSave, FiX } from "react-icons/fi";
 import axios from "axios";
+import keys from "../../../keys";
 
 const HomeAdd = () => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -31,7 +32,7 @@ const HomeAdd = () => {
       FormDatatoSent.append("route",formData.route)
       console.log(formData);
       const response = axios.post(
-        "http://localhost:4000/admin_side/upload_home_cont",
+        `${keys.SERVER_API_CALL}/admin_side/upload_home_cont`,
         FormDatatoSent,
         {
           headers: {

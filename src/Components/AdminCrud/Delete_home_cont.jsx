@@ -11,6 +11,7 @@ import {
 import { FaEdit, FaTrash  } from "react-icons/fa";
 import axios from "axios";
 import Home_update from "./Home_update";
+import keys from "../../../keys";
 
 // Sample data - replace with your actual data source
 const Delete_home_cont = () => {
@@ -24,7 +25,7 @@ const Delete_home_cont = () => {
     try {
       console.log(id);
       const response = await axios.get(
-        `http://localhost:4000/admin_side/delete_home_cont/${id}`,
+        `${keys.SERVER_API_CALL}/admin_side/delete_home_cont/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -41,7 +42,7 @@ const Delete_home_cont = () => {
 
   const  handleEdit =(id)=>{
     try {
-      axios.get(`http://localhost:4000/admin_side/get_home_update/${id}`,{
+      axios.get(`${keys.SERVER_API_CALL}/admin_side/get_home_update/${id}`,{
         headers:{
           "Content-Type":"application/json"
         }
@@ -57,7 +58,7 @@ const Delete_home_cont = () => {
     }
   }
   useEffect(() => {
-    fetch("http://localhost:4000/admin_side/get_home_cont", {
+    fetch(`${keys.SERVER_API_CALL}/admin_side/get_home_cont`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -94,8 +95,8 @@ const Delete_home_cont = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        {hoemContents.map((item) => (
-          <Grid item xs={12} sm={6} md={4} key={item.id}>
+        {hoemContents.map((item,i) => (
+          <Grid item xs={12} sm={6} md={4} key={i}>
             <Card
               sx={{
                 height: "100%",
@@ -111,7 +112,7 @@ const Delete_home_cont = () => {
               <CardMedia
                 component="img"
                 height="200"
-                image={`http://localhost:4000/uploads/${item.imagePath}`}
+                image={`${keys.SERVER_API_CALL}/uploads/${item.imagePath}`}
                 alt={`Home content ${item.id}`}
                 sx={{ objectFit: "cover" }}
                 />

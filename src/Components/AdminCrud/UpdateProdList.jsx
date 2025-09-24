@@ -15,6 +15,7 @@ import {
   Alert,
 } from "@mui/material";
 import UpdateProd from "./UpdateProd";
+import keys from "../../../keys";
 
 function UpdateProdList() {
   let [updateitem, setUpdateItem] = useState(false);
@@ -41,7 +42,7 @@ function UpdateProdList() {
   useEffect(() => {
     try {
       const response = fetch(
-        "http://localhost:4000/admin_side/get_all_products"
+        `${keys.SERVER_API_CALL}/admin_side/get_all_products`
       );
       if (response) {
         response

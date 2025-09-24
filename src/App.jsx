@@ -6,7 +6,7 @@ import SignupPage from "./Components/Signup";
 import Prodpg from "./Components/Prodpg";
 //import Frvcart from "./Components/Frvcart";
 import ProtectRoute from "./Authenticate/ProtectRoute";
-import Setting from "./Components/Setting";
+//import Setting from "./Components/Setting";
 import Dashboard from "./Components/Dashboard";
 import Adprod from "./Components/Adprod";
 import DeleteProd from "./Components/AdminCrud/DeleteProd";
@@ -140,7 +140,7 @@ function App() {
             }
           /> */}
 
-          <Route path="/admin" element={<Setting />} />
+          {/* <Route path="/admin" element={<Setting />} /> */}
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/add-product" element={<Adprod />} />
           <Route path="/delete-product" element={<DeleteProd />} />

@@ -10,12 +10,13 @@ import {
   Container,
   Snackbar,
   Alert,
-  IconButton
-}from "@mui/material";
+  IconButton,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
- import { useNavigate } from "react-router-dom";
-import  { Cookies } from "react-cookie"
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import { Cookies } from "react-cookie";
+import axios from "axios";
+import keys from "../../keys";
 const DecorativeImage = styled("img")({
   position: "absolute",
   width: "60px",
@@ -46,78 +47,76 @@ const FormContainer = styled(Paper)({
 
 const SignupPage = () => {
   const cookies = new Cookies();
-  const [massage,setmassage]=useState({
-    message:"",
-    severity:"",
-    open:false
-  })
- const navigate = useNavigate();
-    const [formData,setfromData]= useState({
-       name:"",
-       email:"",
-       password:""
-    })
+  const [massage, setmassage] = useState({
+    message: "",
+    severity: "",
+    open: false,
+  });
+  const navigate = useNavigate();
+  const [formData, setfromData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-    const handleChange =(e) =>{
-        setfromData({
-            ...formData,
-            [e.target.name]:e.target.value
-
-        })
-        
+  const handleChange = (e) => {
+    setfromData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    if (formData.name && formData.email && formData.password) {
+    } else {
+      setmassage({
+        message: "plz fill the form",
+        severity: "error",
+        open: true,
+      });
     }
-     const handleSubmit = async (e) => {
-   e.preventDefault()
-   console.log(formData)
-   if (formData.name && formData.email && formData.password) {
-   } else {
-     setmassage({
-       message: "plz fill the form",
-       severity: 'error',
-       open: true
-     })
-   }
-   const result = await axios.post("http://localhost:4000/user_side", formData)
-   let name = result.data.data
-   cookies.set("userName",name)
-   console.log(name)
-  if(name){
-    navigate("/prod")
-  }
+    const result = await axios.post(
+      `${keys.SERVER_API_CALL}/user_side`,
+      formData
+    );
+    let name = result.data.data;
+    cookies.set("userName", name);
+    console.log(name);
+    if (name) {
+      navigate("/prod");
+    }
 
-   if(result.data.token){
-     localStorage.setItem("token",result.data.token)
-   }else{
+    if (result.data.token) {
+      localStorage.setItem("token", result.data.token);
+    } else {
+      setmassage({
+        message: "this user already exist",
+        severity: "error",
+        open: true,
+      });
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    const result =
+      (window.location.href = `${keys.SERVER_API_CALL}/user_side/oauth/google`);
+    console.log(result, "ressult");
+  };
+
+  const handleGithubSignup = async () => {
+    window.location.href = `${keys.SERVER_API_CALL}/user_side/github/oauth`;
+  };
+
+  const handleclose = () => {
     setmassage({
-       message: "this user already exist",
-       severity: 'error',
-       open: true
-     })
-   }
-}
+      ...massage,
+      open: false,
+    });
+  };
 
- const handleGoogleSignup = async() => {
-  const result = window.location.href = 'http://localhost:4000/user_side/oauth/google';
-  console.log(result,"ressult")
-  }
-
- const handleGithubSignup = async() => {
-   window.location.href = 'http://localhost:4000/user_side/github/oauth';
- }
-
-
-const handleclose=()=>{
-  setmassage({
-    ...massage,
-    open: false
-  })
-}
-    
-    
-    
   return (
     <Box
-    
       sx={{
         minHeight: "100vh",
         display: "flex",
@@ -129,10 +128,9 @@ const handleclose=()=>{
       }}
     >
       {/* Decorative Images */}
-     
-     
+
       <DecorativeImage
-        src="https://cdn-icons-png.flaticon.com/128/2933/2933116.png" 
+        src="https://cdn-icons-png.flaticon.com/128/2933/2933116.png"
         style={{ top: "10%", left: "15%" }}
       />
       <DecorativeImage
@@ -148,18 +146,17 @@ const handleclose=()=>{
         style={{ bottom: "20%", right: "15%", animationDelay: "1.5s" }}
       />
       <DecorativeImage
-  src="https://cdn-icons-png.flaticon.com/128/438/438526.png" // Dollar symbol with wings icon
-  style={{ top: '50%', left: '50%', animationDelay: '0.5s' }}
-/>
+        src="https://cdn-icons-png.flaticon.com/128/438/438526.png" // Dollar symbol with wings icon
+        style={{ top: "50%", left: "50%", animationDelay: "0.5s" }}
+      />
 
-      
-
-      <Container maxWidth="sm" 
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
+      <Container
+        maxWidth="sm"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <FormContainer elevation={0}>
           <Typography
@@ -252,52 +249,60 @@ const handleclose=()=>{
             </Button>
           </Box>
 
-          <Box sx={{ 
-  mt: 3, 
-  display: 'flex', 
-  flexDirection: 'row',
-  justifyContent: 'center',
-  gap: 4 
-}}>
-  <IconButton
-    sx={{
-      border: '1px solid #ddd',
-      padding: 2,
-      transition: 'all 0.3s ease',
-      '&:hover': {
-        transform: 'translateY(-3px)',
-        borderColor: '#2196F3',
-        bgcolor: 'rgba(33, 150, 243, 0.04)',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-      }
-    }}
-    onClick={handleGoogleSignup}
-    >
-    <FcGoogle size={24} />
-  </IconButton>
-  
-    <IconButton
-    sx={{
-      border: '1px solid #ddd',
-      padding: 2,
-      transition: 'all 0.3s ease',
-      '&:hover': {
-        transform: 'translateY(-3px)',
-        borderColor: '#2196F3',
-        bgcolor: 'rgba(33, 150, 243, 0.04)',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-      }
+          <Box
+            sx={{
+              mt: 3,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: 4,
+            }}
+          >
+            <IconButton
+              sx={{
+                border: "1px solid #ddd",
+                padding: 2,
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-3px)",
+                  borderColor: "#2196F3",
+                  bgcolor: "rgba(33, 150, 243, 0.04)",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                },
+              }}
+              onClick={handleGoogleSignup}
+            >
+              <FcGoogle size={24} />
+            </IconButton>
 
-    }}
-    onClick={handleGithubSignup}
-  >
-    <BsGithub size={24} />
-  </IconButton>
-  
-       </Box>
+            <IconButton
+              sx={{
+                border: "1px solid #ddd",
+                padding: 2,
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-3px)",
+                  borderColor: "#2196F3",
+                  bgcolor: "rgba(33, 150, 243, 0.04)",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                },
+              }}
+              onClick={handleGithubSignup}
+            >
+              <BsGithub size={24} />
+            </IconButton>
+          </Box>
         </FormContainer>
-        <Snackbar open={massage.open} autoHideDuration={3000} onClose={handleclose}>
-          <Alert severity={massage.severity} onClose={handleclose} sx={{ width: '100%' }}>
+        <Snackbar
+          open={massage.open}
+          autoHideDuration={3000}
+          onClose={handleclose}
+        >
+          <Alert
+            severity={massage.severity}
+            onClose={handleclose}
+            sx={{ width: "100%" }}
+          >
             {massage.message}
           </Alert>
         </Snackbar>

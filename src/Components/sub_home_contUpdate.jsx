@@ -46,6 +46,7 @@ import { MdDashboard, MdPreview } from "react-icons/md";
 import { BiImageAdd } from "react-icons/bi";
 import { HiSparkles } from "react-icons/hi";
 import axios from "axios";
+import keys from "../../keys";
 
 const SubHomeContent = () => {
   const [homeContents, setHomeContents] = useState([]); // stored fetch data 
@@ -59,7 +60,7 @@ const SubHomeContent = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:4000/admin_side/get_home&sub_home_cont",
+          `${keys.SERVER_API_CALL}/admin_side/get_home&sub_home_cont`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -183,7 +184,7 @@ const SubHomeContent = () => {
       // })
 
       await axios.put(
-        "http://localhost:4000/admin_side/all_home_content_update",
+        `${keys.SERVER_API_CALL}/admin_side/all_home_content_update`,
         formData,
         {
           headers: {
@@ -470,7 +471,7 @@ const SubHomeContent = () => {
                           <img
                             src={
                               homeContent.imagePreview ||
-                              `http://localhost:4000/uploads/${homeContent.home_img}`
+                              `${keys.SERVER_API_CALL}/uploads/${homeContent.home_img}`
                             }
                             alt={`Main content ${mainIndex + 1} preview`}
                             style={{
@@ -627,7 +628,7 @@ const SubHomeContent = () => {
                                     <img
                                       src={
                                         subContent.imagePreview ||
-                                        `http://localhost:4000/uploads/${subContent.image}`
+                                        `${keys.SERVER_API_CALL}/uploads/${subContent.image}`
                                       }
                                       alt={`Sub content ${
                                         subIndex + 1

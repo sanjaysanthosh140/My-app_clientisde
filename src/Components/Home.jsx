@@ -21,6 +21,8 @@ import {
   FaGithub
 } from "react-icons/fa";
 import { gql,useQuery} from '@apollo/client';
+import { progress } from "framer-motion";
+import keys from "../../keys";
 
 // Enhanced styled components with vertical scrolling and hover effects
 const TechStacksContainer = styled(Box)(({ theme }) => ({
@@ -162,14 +164,14 @@ const Home = () => {
   // Fetch data from server
   useEffect(() => {
    
-    fetch("http://localhost:4000/admin_side/get_home_cont", {
+    fetch(`${keys.SERVER_API_CALL}/admin_side/get_home_cont`, {
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Data", data);
+        console.log("Data", keys.SERVER_API_CALL);
         setStacks(data);
         setLoading(false);
       })
@@ -177,7 +179,6 @@ const Home = () => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-    
   }, []);
 
   // Handle window resize
@@ -253,7 +254,7 @@ const Home = () => {
             <TechStacksContainer>
               {stacks && stacks.map((stack,index) => (
                 <ImageCard key={index} onClick={() => navigate(stack.route)}>
-                  <CardImage src={`http://localhost:4000/uploads/${stack.home_Image}`} alt={stack.title} />
+                  <CardImage src={`${keys.SERVER_API_CALL}/uploads/${stack.home_Image}`} alt={stack.title} />
                   <CardOverlay className="card-overlay" />
                   <IconContainer className="card-icon">
 

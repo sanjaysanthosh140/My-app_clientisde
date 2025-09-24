@@ -14,6 +14,8 @@ import { BsGithub } from "react-icons/bs";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
+import keys from "../../keys";
+
 function Login() {
   const messaging = (message) => {
     setmessage({
@@ -48,11 +50,11 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4000/user_side/oauth/google";
+    window.location.href = `${keys.SERVER_API_CALL}/user_side/oauth/google`;
   };
 
   const handleGithubLogin = () => {
-    window.location.href = "http://localhost:4000/user_side/github/oauth";
+    window.location.href = `${keys.SERVER_API_CALL}/user_side/github/oauth`;
   };
 const hadleClose =() =>{
   setmessage({
@@ -65,7 +67,7 @@ const hadleClose =() =>{
     //console.log(formData);
     axios
       .post(
-        "http://localhost:4000/user_side/login", formData
+        `${keys.SERVER_API_CALL}/user_side/login`, formData
       )
       .then((response) => {
         setformData({

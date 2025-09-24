@@ -3,6 +3,8 @@ import "./Stackcomponent.css";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import keys from "../../keys";
+
 
 function Stackcomponent(stack) {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ function Stackcomponent(stack) {
     const fetchData = async () => {
       try {
         await fetch(
-          `http://localhost:4000/admin_side/Get_stack?stack=${stacklis}`,
+          `${keys.SERVER_API_CALL}/admin_side/Get_stack?stack=${stacklis}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -142,7 +144,7 @@ function Stackcomponent(stack) {
               htmlFor={`card-${index}`}
               className="card"
               style={{
-                backgroundImage: `url(http://localhost:4000/uploads/${card.image})`,
+                backgroundImage: `url(${keys.SERVER_API_CALL}/uploads/${card.image})`,
               }}
             >
               <div className="row">
