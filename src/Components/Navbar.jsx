@@ -9,18 +9,16 @@ import {
   List,
   ListItem,
   ListItemText,
+  Box,
 } from "@mui/material";
-import { FaBars } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { FaBars, FaHeart, FaHome, FaUserPlus, FaSignInAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { FaHeart } from "react-icons/fa"; //
-//  import  { Cookies } from "react-cookie"
+
 function Navbar() {
-  // const cookie = new Cookies();
-  // const userName = cookie.get("userName");
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -33,66 +31,159 @@ function Navbar() {
     setDrawerOpen(open);
   };
 
+  const menuItems = [
+    { text: "Home", path: "/", icon: <FaHome /> },
+    { text: "Wish", path: "/Wish", icon: <FaHeart /> },
+    { text: "Login", path: "/login", icon: <FaSignInAlt /> },
+    { text: "Signup", path: "/signup", icon: <FaUserPlus /> },
+  ];
+
   const drawer = (
-    <div
+    <Box
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
-      sx={{ backgroundColor: "lightblue", height: "100%" }}
+      sx={{
+        width: "100%",
+        height: "100%",
+        background: "linear-gradient(145deg, #667eea 0%, #764ba2 100%)",
+        pt: 2,
+      }}
     >
-      <List>
-        <ListItem buttonbase="value" component={Link} to="/prod">
-          <ListItemText primary="products" sx={{ color: "white" }} />
-        </ListItem>
-        <ListItem buttonbase="value" component={Link} to="/signup">
-          <ListItemText primary="Signup" sx={{ color: "white" }} />
-        </ListItem>
-        <ListItem buttonbase="value" component={Link} to="/Wish">
-          <ListItemText primary="Wish" sx={{ color: "white" }} />
-        </ListItem>
+      <List sx={{ px: 2 }}>
+        {menuItems.map((item, index) => (
+          <ListItem
+            key={index}
+            button
+            component={Link}
+            to={item.path}
+            sx={{
+              mb: 1,
+              borderRadius: "12px",
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                backgroundColor: "rgba(255, 255, 255, 0.25)",
+                transform: "translateX(10px)",
+              },
+            }}
+          >
+            <Box sx={{ mr: 2, color: "white", display: "flex", alignItems: "center" }}>
+              {item.icon}
+            </Box>
+            <ListItemText 
+              primary={item.text} 
+              sx={{ 
+                color: "white",
+                "& .MuiListItemText-primary": {
+                  fontWeight: "600",
+                  fontSize: "1.1rem",
+                }
+              }} 
+            />
+          </ListItem>
+        ))}
       </List>
-    </div>
+    </Box>
   );
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "lightblue" }}>
-      <Toolbar>
+    <AppBar 
+      position="sticky" 
+      sx={{ 
+        background: "linear-gradient(90deg, #667eea 0%, #764ba2 100%)",
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <Toolbar sx={{ px: { xs: 2, sm: 3, md: 4 }, py: 1 }}>
         {isMobile && (
           <>
             <IconButton
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              sx={{ 
+                mr: 2,
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                }
+              }}
               onClick={toggleDrawer(true)}
             >
               <FaBars />
             </IconButton>
             <Drawer
-              anchor="top"
+              anchor="left"
               open={drawerOpen}
               onClose={toggleDrawer(false)}
-              sx={{ "& .MuiDrawer-paper": { backgroundColor: "lightblue" } }}
+              sx={{ 
+                "& .MuiDrawer-paper": { 
+                  width: { xs: "75%", sm: "300px" },
+                  background: "transparent",
+                } 
+              }}
             >
               {drawer}
             </Drawer>
           </>
         )}
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          MyApp
+        
+        {/* Brand/Logo */}
+        <Typography 
+          variant="h5" 
+          component={Link}
+          to="/"
+          sx={{ 
+            flexGrow: 1,
+            fontWeight: "800",
+            fontSize: { xs: "1.3rem", sm: "1.5rem", md: "1.8rem" },
+            color: "white",
+            textDecoration: "none",
+            letterSpacing: "1px",
+            textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              transform: "scale(1.05)",
+              textShadow: "3px 3px 6px rgba(0,0,0,0.3)",
+            }
+          }}
+        >
+          Stack-Boat
         </Typography>
+
+        {/* Desktop Menu */}
         {!isMobile && (
-          <>
-            <Button color="inherit" component={Link} to="/login">
-              login
-            </Button>
-            <Button color="inherit" component={Link} to="/signup">
-              Signup
-            </Button>
-            <Button color="inherit" component={Link} to="/Wish">
-             Wish
-            </Button>
-          </>
+          <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
+            {menuItems.map((item, index) => (
+              <Button
+                key={index}
+                color="inherit"
+                component={Link}
+                to={item.path}
+                startIcon={item.icon}
+                sx={{
+                  fontWeight: "600",
+                  fontSize: "0.95rem",
+                  textTransform: "capitalize",
+                  px: 2.5,
+                  py: 1,
+                  borderRadius: "25px",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backdropFilter: "blur(10px)",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.25)",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+                  },
+                }}
+              >
+                {item.text}
+              </Button>
+            ))}
+          </Box>
         )}
       </Toolbar>
     </AppBar>
